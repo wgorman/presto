@@ -1,0 +1,13 @@
+This is a hack of presto-jdbc to allow Java 1.7 usage.  To build run:
+
+mvn package -DskipTests
+
+Here are the steps I took to make this work:
+
+Copied over the dependencies from api and client to simplify the POM situation
+
+Updated the POM and parent POM to depend on JDK 1.7 and to depend on libraries that are 1.7 compatible
+
+Updated the code replacing Java 1.8 code with 1.7 code
+
+

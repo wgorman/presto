@@ -21,6 +21,7 @@ import com.facebook.presto.jdbc.ColumnInfo.Nullable;
 import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.base.Function;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Period;
 import org.joda.time.format.DateTimeFormat;
@@ -1759,7 +1760,13 @@ public class PrestoResultSet
 
     private static <T> Iterator<T> flatten(Iterator<Iterable<T>> iterator)
     {
-        return concat(transform(iterator, Iterable::iterator));
+		return concat(transform(iterator, 
+			new Function<Iterable<T>, Iterator<T>>() {
+				public Iterator<T> apply(Iterable<T> object) {
+					return object.iterator();
+				}
+			}
+		));
     }
 
     private static class ResultsPageIterator

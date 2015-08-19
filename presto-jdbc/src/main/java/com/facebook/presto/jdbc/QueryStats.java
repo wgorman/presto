@@ -15,7 +15,7 @@ package com.facebook.presto.jdbc;
 
 import com.facebook.presto.client.StatementStats;
 
-import java.util.Optional;
+// import java.util.Optional;
 
 import static java.util.Objects.requireNonNull;
 
@@ -33,7 +33,9 @@ public final class QueryStats
     private final long wallTimeMillis;
     private final long processedRows;
     private final long processedBytes;
-    private final Optional<StageStats> rootStage;
+    private final StageStats rootStage;
+
+
 
     public QueryStats(
             String state,
@@ -48,9 +50,9 @@ public final class QueryStats
             long wallTimeMillis,
             long processedRows,
             long processedBytes,
-            Optional<StageStats> rootStage)
+            StageStats rootStage)
     {
-        this.state = requireNonNull(state, "state is null");
+        this.state = state;
         this.scheduled = scheduled;
         this.nodes = nodes;
         this.totalSplits = totalSplits;
@@ -62,7 +64,7 @@ public final class QueryStats
         this.wallTimeMillis = wallTimeMillis;
         this.processedRows = processedRows;
         this.processedBytes = processedBytes;
-        this.rootStage = requireNonNull(rootStage, "rootStage is null");
+        this.rootStage = rootStage; // , "rootStage is null");
     }
 
     static QueryStats create(StatementStats stats)
@@ -80,7 +82,7 @@ public final class QueryStats
                 stats.getWallTimeMillis(),
                 stats.getProcessedRows(),
                 stats.getProcessedBytes(),
-                Optional.ofNullable(stats.getRootStage()).map(StageStats::create));
+                null/* Optional.ofNullable(stats.getRootStage()).map(StageStats::create)*/);
     }
 
     public String getState()
@@ -143,7 +145,7 @@ public final class QueryStats
         return processedBytes;
     }
 
-    public Optional<StageStats> getRootStage()
+    public StageStats getRootStage()
     {
         return rootStage;
     }

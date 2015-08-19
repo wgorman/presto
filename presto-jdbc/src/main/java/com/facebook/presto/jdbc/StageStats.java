@@ -18,7 +18,7 @@ import com.google.common.collect.ImmutableList;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
-import static java.util.stream.Collectors.toList;
+ // import static java.util.stream.Collectors.toList;
 
 public final class StageStats
 {
@@ -85,9 +85,10 @@ public final class StageStats
                 stats.getWallTimeMillis(),
                 stats.getProcessedRows(),
                 stats.getProcessedBytes(),
-                stats.getSubStages().stream()
+		null
+                /*stats.getSubStages().stream()
                         .map(StageStats::create)
-                        .collect(toList()));
+                        .collect(toList())*/);
     }
 
     public String getStageId()
